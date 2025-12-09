@@ -2,88 +2,126 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Monteur App – Elektro Jungbauer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monteur Fortschritt</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f3f3f3;
-      margin: 0;
-      padding: 0;
+      background: #f4f4f4;
+      padding: 20px;
     }
-    .box {
+
+    .container {
       background: white;
       max-width: 500px;
-      margin: 30px auto;
+      margin: auto;
       padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
+
     h1 {
       text-align: center;
     }
-    select {
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 20px;
       width: 100%;
       padding: 12px;
-      margin-bottom: 15px;
-      font-size: 16px;
-    }
-    iframe {
-      width: 100%;
-      height: 900px;
+      background: #d90000;
+      color: white;
       border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #b70000;
+    }
+
+    .last {
+      margin-top: 30px;
+      background: #eee;
+      padding: 15px;
+      border-radius: 8px;
     }
   </style>
 </head>
-
 <body>
 
-  <div class="box">
-    <h1>Monteur – Fortschrittsbericht</h1>
+<div class="container">
+  <h1>Monteur – Fortschritt</h1>
 
-    <label>Monteur auswählen:</label>
-    <select id="monteur" onchange="updateForm()">
-      <option value="">Bitte wählen</option>
-      <option>Steiger</option>
-      <option>Zisser</option>
-      <option>Fazlic</option>
-      <option>Oberhofer</option>
-      <option>Lichtenwörther</option>
-      <option>Retzl</option>
-      <option>Haindl</option>
-      <option>Neitsch</option>
-    </select>
+  <label>Monteur</label>
+  <select id="monteur">
+    <option>Steiger</option>
+    <option>Zisser</option>
+    <option>Fazlic</option>
+    <option>Oberhofer</option>
+    <option>Lichtenwörther</option>
+    <option>Retzl</option>
+    <option>Haindl</option>
+    <option>Neitsch</option>
+  </select>
 
-    <label>Baustelle auswählen:</label>
-    <select id="baustelle" onchange="updateForm()">
-      <option value="">Bitte wählen</option>
-      <option>Bad Sauerbrunn</option>
-      <option>Neufeld</option>
-      <option>Sooß</option>
-      <option>Wien Projekt A</option>
-      <option>Wien Projekt B</option>
-    </select>
-  </div>
+  <label>Baustelle</label>
+  <input id="baustelle" placeholder="z.B. Bau Müller">
 
-  <div class="box" id="formBox" style="display:none;">
-    <iframe id="formFrame"></iframe>
-  </div>
+  <label>Fortschritt (%)</label>
+  <input id="fortschritt" type="number">
+
+  <label>Bemerkung</label>
+  <textarea id="info"></textarea>
+
+  <button onclick="speichern()">Speichern</button>
+
+  <div class="last" id="anzeige"></div>
+</div>
 
 <script>
-function updateForm() {
-  const monteur = document.getElementById("monteur").value;
-  const baustelle = document.getElementById("baustelle").value;
+function speichern() {
+  const daten = {
+    monteur: monteur.value,
+    baustelle: baustelle.value,
+    fortschritt: fortschritt.value,
+    info: info.value,
+    zeit: new Date().toLocaleString()
+  };
 
-  if (monteur && baustelle) {
-    document.getElementById("formBox").style.display = "block";
-
-    const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSecipezzn5hUo3X_0378a5JCM0eV-a278T_caoqbbkTKphjJg/viewform?usp=pp_url"
-      + "&entry.1111111111=" + encodeURIComponent(monteur)
-      + "&entry.2222222222=" + encodeURIComponent(baustelle);
-
-    document.getElementById("formFrame").src = formURL;
-  }
+  localStorage.setItem("letzterBericht", JSON.stringify(daten));
+  anzeigen();
 }
+
+function anzeigen() {
+  const daten = JSON.parse(localStorage.getItem("letzterBericht"));
+  if (!daten) return;
+
+  document.getElementById("anzeige").innerHTML = `
+    <b>Letzter Eintrag:</b><br><br>
+    Monteur: ${daten.monteur}<br>
+    Baustelle: ${daten.baustelle}<br>
+    Fortschritt: ${daten.fortschritt}%<br>
+    Info: ${daten.info}<br>
+    Zeit: ${daten.zeit}
+  `;
+}
+
+anzeigen();
 </script>
 
 </body>
