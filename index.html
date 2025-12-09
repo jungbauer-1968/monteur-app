@@ -2,178 +2,50 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Monteur App – Fortschritt</title>
+  <title>Monteur – Fortschrittsmeldung</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      padding: 15px;
+      background: #f4f4f4;
     }
 
-    .box {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-      box-shadow: 0 0 10px rgba(0,0,0,0.15);
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 15px;
-    }
-
-    input, select, textarea, button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 5px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-
-    button {
-      background: #007bff;
+    header {
+      background: #e30613;
       color: white;
-      margin-top: 25px;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #0056b3;
-    }
-
-    #status {
       text-align: center;
-      margin-top: 15px;
+      padding: 16px;
+      font-size: 20px;
       font-weight: bold;
+    }
+
+    .wrapper {
+      width: 100%;
+      height: calc(100vh - 70px);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
   </style>
 </head>
 
 <body>
 
-<div class="box">
+  <header>
+    Elektro Jungbauer – Wochenbericht Monteur
+  </header>
 
-  <h1>Monteur Fortschritt</h1>
-
-  <label>Monteur</label>
-  <select id="monteur">
-    <option>Steiger</option>
-    <option>Zisser</option>
-    <option>Fazlic</option>
-    <option>Oberhofer</option>
-    <option>Lichtenwörther</option>
-    <option>Retzl</option>
-    <option>Haindl</option>
-    <option>Neitsch</option>
-  </select>
-
-  <label>Baustelle</label>
-  <input id="baustelle" placeholder="Baustelle eingeben">
-
-  <label>Woche</label>
-  <select id="woche">
-    <option>KW 1</option>
-    <option>KW 2</option>
-    <option>KW 3</option>
-    <option>KW 4</option>
-    <option>KW 5</option>
-    <option>KW 6</option>
-    <option>KW 7</option>
-    <option>KW 8</option>
-    <option>KW 9</option>
-    <option>KW 10</option>
-    <option>KW 11</option>
-    <option>KW 12</option>
-    <option>KW 13</option>
-    <option>KW 14</option>
-    <option>KW 15</option>
-    <option>KW 16</option>
-    <option>KW 17</option>
-    <option>KW 18</option>
-    <option>KW 19</option>
-    <option>KW 20</option>
-    <option>KW 21</option>
-    <option>KW 22</option>
-    <option>KW 23</option>
-    <option>KW 24</option>
-    <option>KW 25</option>
-    <option>KW 26</option>
-    <option>KW 27</option>
-    <option>KW 28</option>
-    <option>KW 29</option>
-    <option>KW 30</option>
-    <option>KW 31</option>
-    <option>KW 32</option>
-    <option>KW 33</option>
-    <option>KW 34</option>
-    <option>KW 35</option>
-    <option>KW 36</option>
-    <option>KW 37</option>
-    <option>KW 38</option>
-    <option>KW 39</option>
-    <option>KW 40</option>
-    <option>KW 41</option>
-    <option>KW 42</option>
-    <option>KW 43</option>
-    <option>KW 44</option>
-    <option>KW 45</option>
-    <option>KW 46</option>
-    <option>KW 47</option>
-    <option>KW 48</option>
-    <option>KW 49</option>
-    <option>KW 50</option>
-    <option>KW 51</option>
-    <option>KW 52</option>
-  </select>
-
-  <label>Arbeitsfortschritt (%)</label>
-  <input type="number" id="fortschritt">
-
-  <label>Notizen</label>
-  <textarea id="notiz" rows="4"></textarea>
-
-  <button onclick="senden()">Bericht senden</button>
-
-  <div id="status"></div>
-</div>
-
-<script>
-async function senden() {
-
-  const data = {
-    monteur: document.getElementById("monteur").value,
-    baustelle: document.getElementById("baustelle").value,
-    woche: document.getElementById("woche").value,
-    fortschritt: document.getElementById("fortschritt").value,
-    notiz: document.getElementById("notiz").value
-  };
-
-  const url = "HIER_DEINE_GOOGLE_SCRIPT_URL_EINTRAGEN";
-
-  await fetch(url, {
-    method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  });
-
-  document.getElementById("status").innerHTML = "✅ Bericht wurde gesendet!";
-}
-</script>
+  <div class="wrapper">
+    <iframe 
+      src="https://docs.google.com/forms/d/e/1FAIpQLSecipezzn5hUo3X_0378a5JCM0eV-a278T_caoqbbkTKphjJg/viewform?embedded=true">
+      Wird geladen…
+    </iframe>
+  </div>
 
 </body>
 </html>
-
